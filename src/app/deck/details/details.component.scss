@@ -1,0 +1,32 @@
+
+.container{
+    padding: 10px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+igx-card{
+    max-width: 250px;
+
+    igx-card-header{
+        p{
+            font-weight: bold;
+            text-align: center;
+            margin:0;
+        }
+        
+    }
+    igx-card-content{
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p{
+            font-size: 100px;
+            line-height: 100px
+        }
+    }
+   
+}
+

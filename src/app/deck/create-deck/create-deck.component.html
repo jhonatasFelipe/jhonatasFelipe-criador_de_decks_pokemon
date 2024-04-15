@@ -1,0 +1,108 @@
+
+<h4>Criação de deck</h4>
+<br/>
+<div class="container">
+    <igx-card class="container-filter">
+        <igx-card-header>
+            <span>
+                <h5>Filtros</h5>
+                <igx-icon fontSet="material">filter_list</igx-icon>
+            </span>
+        </igx-card-header>
+        <igx-card-content>
+            <form [formGroup]="formFilter">
+
+                <igx-select  (ngModelChange)="getCards()" formControlName="types">
+                    <label igxLabel>Tipo</label>
+                    <igx-select-item *ngFor="let type of types" [value]="type" >
+                        {{type}}
+                    </igx-select-item>
+                </igx-select>
+    
+                <igx-select  (ngModelChange)="getCards()" formControlName="subtypes">
+                    <label igxLabel>Sub tipo</label>
+                    <igx-select-item *ngFor="let subtype of Subtypes" [value]="subtype" >
+                        {{subtype}}
+                    </igx-select-item>
+                </igx-select>
+    
+                <igx-select  formControlName="supertype" (ngModelChange)="getCards()">
+                    <label igxLabel>Super Tipo</label>
+                    <igx-select-item *ngFor="let superType of superTypes" [value]="superType" >
+                        {{superType}}
+                    </igx-select-item>
+                </igx-select>
+    
+                <igx-select formControlName="rarity" (ngModelChange)="getCards()">
+                    <label igxLabel>Raridade</label>
+                    <igx-select-item *ngFor="let rarity of rarities" [value]="rarity" >
+                        {{ rarity }}
+                    </igx-select-item>
+                </igx-select>
+            </form>
+        </igx-card-content>
+    </igx-card>
+    
+    <igx-card class="container-cards">
+        <igx-card-header>
+            <span>
+                <h5>Cartas</h5>
+                <igx-icon fontSet="material">style</igx-icon>
+            </span>
+        </igx-card-header>
+        <igx-card-content >
+            <img class="image-cards" *ngFor="let card of cards" [src]=card.images.small (click)="addCardAtTheDack(card)">
+        </igx-card-content>
+        <igx-card-footer>
+            <igx-paginator #paginator
+            [perPage]=filter.pageSize
+            [selectOptions]=perPageOptions
+            [totalRecords]=totalOfCards
+            (pageChange)="changePage($event)"
+            (perPageChange)="changePerPage($event)"
+            >
+            </igx-paginator>
+        </igx-card-footer>
+    </igx-card>
+
+    <igx-card class="container-selected-cards">
+        <igx-card-header>
+            <span>
+                <h5>Informações</h5>
+                <igx-icon fontSet="material">info</igx-icon>
+            </span>
+            
+        </igx-card-header>
+        <igx-card-content>
+            <h5>Cartas no deck {{ deck.cards.length }} / {{ maxCards }}</h5>
+            <button class="save-button" igxButton="contained" (click)="setDeckName()">Salvar Deck</button>
+            <button class="save-button" igxButton="contained" (click)="gotoCollections()">Cancelar</button>
+            <igx-list>
+                <igx-list-item *ngFor="let card3 of deck.cards ;let i = index" >
+                    {{card3.name}} 
+                    <igx-icon fontSet="material" (click)="removeCard(i)">delete</igx-icon>
+                </igx-list-item>
+            </igx-list>
+        </igx-card-content>
+    </igx-card>
+
+</div>
+
+<igx-dialog #alert
+    leftButtonLabel="OK"
+    (leftButtonSelect)="alert.close()">
+</igx-dialog>
+
+
+<igx-dialog #save>
+    <form [formGroup]="formColletion">
+        <igx-input-group>
+            <input igxInput name="name" type="text" formControlName="name"/>
+            <label igxLabel for="name">Nome do Baralho</label>
+        </igx-input-group>
+        <button igxButton="contained" (click)="saveDeck()">Salvar</button>
+    </form>
+</igx-dialog>
+    
+
+

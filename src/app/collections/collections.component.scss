@@ -1,0 +1,11 @@
+igx-list-item{
+    position: relative;
+    span{
+        position: absolute;
+        right: 30px;
+        igx-icon{
+            cursor: pointer;
+            margin: 0 5px;
+        }
+    }
+}

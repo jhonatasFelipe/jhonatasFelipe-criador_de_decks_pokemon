@@ -1,0 +1,48 @@
+
+<h4>Detalhes do baralho</h4>
+<h6> {{deck.name}}</h6>
+<div class="container">
+    <igx-card> 
+        <igx-card-header>
+            <p>Quantidade de cartas de treinador</p>
+        </igx-card-header>
+        <igx-card-content>
+        <p>{{ getAmouthTrainers() }} </p> 
+        </igx-card-content>
+    </igx-card>
+
+    <igx-card> 
+        <igx-card-header>
+            <p>Quantidade de cartas de Pokemon</p>
+        </igx-card-header>
+        <igx-card-content>
+        <p>{{ getAmouthPokemon() }} </p> 
+        </igx-card-content>
+    </igx-card>
+
+    <igx-card> 
+        <igx-card-header>
+            <p>Quantidade de cartas de Energia</p>
+        </igx-card-header>
+        <igx-card-content>
+        <p>{{ getAmouthEnergy() }} </p> 
+        </igx-card-content>
+    </igx-card>
+
+
+    <igx-card> 
+        <igx-card-header>
+            <p>Quantidade de tipos unicos</p>
+        </igx-card-header>
+        <igx-card-content>
+        <p>{{ getDistinctTypes() }}</p> 
+        </igx-card-content>
+    </igx-card>
+
+</div>
+
+<a [routerLink]="['/collections']" routerLinkActive="router-link-active" >Voltar para a coleção</a>
+
+
+
+

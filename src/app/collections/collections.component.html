@@ -1,0 +1,16 @@
+<h4> Meus Baralhos</h4>
+<br/>
+<igx-list>
+    <igx-list-item [isHeader]=true> Baralhos</igx-list-item>
+    <igx-list-item class="item-data" *ngFor="let deck of collection.decks; let i = index">
+        {{deck.name}}
+        <span>
+            <igx-icon (click)="goToEdit(i)">edit</igx-icon>
+            <igx-icon (click)="goToDetails(i)">visibility</igx-icon>
+            <igx-icon (click)="collection.removeDeck(i)">delete</igx-icon>
+        </span>
+    </igx-list-item>
+</igx-list>
+
+
+
