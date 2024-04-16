@@ -51,6 +51,8 @@ export class CreateDeckComponent implements OnInit{
 
   public formColletion!: FormGroup;
 
+  public deckIndex!: string | null
+
 
   constructor(
     private typesSerice:TypesService, 
@@ -64,11 +66,10 @@ export class CreateDeckComponent implements OnInit{
   ){}
 
   ngOnInit(){
-    let index = this.activeRoute.snapshot.paramMap.get('id');
-    console.log(index);
-    if(index){
+    this.deckIndex = this.activeRoute.snapshot.paramMap.get('id');
+    if(this.deckIndex){
       let collection = new Collection();
-      this.deck = collection.decks[parseInt(index)];
+      this.deck = collection.decks[parseInt(this.deckIndex)];
     }else{
       this.deck = new Deck([]);
     }
@@ -87,8 +88,6 @@ export class CreateDeckComponent implements OnInit{
       types:['']
     })
 
-   
-
     this.getTypes();
     this.getSubTypes();
     this.getSuperTypes();
@@ -97,7 +96,7 @@ export class CreateDeckComponent implements OnInit{
     this.makeLuceneQuery();
 
     this.formColletion  = this.formBuilder.group({
-      name:['',[Validators.required]]
+      name:[this.deck.name,[Validators.required]]
     });
 
   }
@@ -222,9 +221,15 @@ export class CreateDeckComponent implements OnInit{
 
   saveDeck(){
     if(this.formColletion.valid){
-      this.deck.name = this.formColletion.get('name')?.value
       let collection  = new Collection();
-      collection.addDeck(this.deck);
+      if(this.deckIndex){
+        this.deck.name = this.formColletion.get('name')?.value
+        collection.decks[parseInt(this.deckIndex)] = this.deck;
+        sessionStorage.setItem('Collection',JSON.stringify(collection.decks));
+      }else{
+        this.deck.name = this.formColletion.get('name')?.value
+        collection.addDeck(this.deck);
+      }
       this.SaveDialog.close();
       this.router.navigate(['/','collections']);
     }

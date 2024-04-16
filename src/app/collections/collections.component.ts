@@ -23,6 +23,10 @@ export class CollectionsComponent {
     this.Router.navigate(['deck','edit',index]);
   }
 
+  goToNewDeck(){
+    this.Router.navigate(['deck','new-deck']);
+  }
+
 
 
 }
